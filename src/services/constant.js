@@ -1,0 +1,1 @@
+const FAVORITE_KEY = "__FAVORITE_CITY__";
