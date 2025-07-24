@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import {createContext, useContext, useState} from "react";
 
 const UnitContext = createContext();
 
-export const UnitProvider = ({ children }) => {
+export const UnitProvider = ({children}) => {
     const [unit, setUnit] = useState("metric");
 
     const toggleUnit = () => {
@@ -14,7 +14,7 @@ export const UnitProvider = ({ children }) => {
 
     return (
         <UnitContext.Provider
-            value={{ unit, toggleUnit, toFahrenheit, toCelsius }}
+            value={{unit, toggleUnit, toFahrenheit, toCelsius}}
         >
             {children}
         </UnitContext.Provider>

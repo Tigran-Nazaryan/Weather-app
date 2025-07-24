@@ -1,1 +1,1 @@
-const FAVORITE_KEY = "__FAVORITE_CITY__";
+export const FAVORITE_KEY = "__FAVORITE_CITY__";
