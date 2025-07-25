@@ -1,10 +1,8 @@
 import FavoriteToggleButton from "./FavoriteToggleButton.jsx";
-import {useFavorites} from "../store/FavoritesContext.jsx";
 import React from "react";
 import {useUnit} from "../store/UnitContext.jsx";
 
 function FavoritesItem({item, onSelect}) {
-  const {removeFavorite} = useFavorites();
   const {unit} = useUnit();
   return (
     <div
@@ -24,7 +22,7 @@ function FavoritesItem({item, onSelect}) {
           alt={item.description}
           className="w-16 h-16"
         />
-        <FavoriteToggleButton isFavorite={true} onToggle={() => removeFavorite(item.city)}/>
+        <FavoriteToggleButton city={item.city}/>
       </div>
     </div>
   );

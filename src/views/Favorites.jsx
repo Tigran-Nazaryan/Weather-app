@@ -45,9 +45,6 @@ const Favorites = () => {
     navigate(ROUTES.ROOT);
   };
 
-  const handleRemoveFavorite = (cityName) => {
-    removeFavorite(cityName);
-  };
   return (
     <div className="container flex flex-col items-center pt-4 gap-4">
       <h1 className="text-2xl font-bold">Featured city</h1>

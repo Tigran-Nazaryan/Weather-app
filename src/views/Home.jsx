@@ -2,7 +2,6 @@ import {useState, useEffect, useMemo, useCallback} from "react";
 import {getCurrentWeather} from "../api/weatherApi.js";
 import {useUnit} from "../store/UnitContext.jsx";
 import {useCity} from "../store/CityContext.jsx";
-import {useFavorites} from "../store/FavoritesContext.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import WeatherDisplay from "../components/WeatherDisplay.jsx";
 
@@ -13,15 +12,10 @@ const Home = () => {
   const {unit} = useUnit();
   const {city, setCity} = useCity();
   const [searchQuery, setSearchQuery] = useState(city);
-  const {favorites, addFavorite, removeFavorite} = useFavorites();
 
   const normalizedCity = useMemo(() => {
     return weather?.city?.trim().toLowerCase() || "";
   }, [weather]);
-
-  const isFavorite = useMemo(() => {
-    return favorites.some(fav => fav.trim().toLowerCase() === normalizedCity);
-  }, [favorites, normalizedCity]);
 
   const handleChange = useCallback((e) => {
     setSearchQuery(e.target.value);
@@ -33,21 +27,6 @@ const Home = () => {
     }
   }, [searchQuery, setCity]);
 
-  const toggleFavorite = useCallback(() => {
-    if (!weather) return;
-
-    const normalizedCity = weather.city.trim().toLowerCase();
-
-    const isAlreadyFavorite = favorites.some(
-      fav => fav.trim().toLowerCase() === normalizedCity
-    );
-
-    if (isAlreadyFavorite) {
-      removeFavorite(weather.city);
-    } else {
-      addFavorite(weather.city);
-    }
-  }, [weather, favorites, addFavorite, removeFavorite]);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -81,16 +60,6 @@ const Home = () => {
     setSearchQuery(city);
   }, [city]);
 
-  if (loading)
-    return (
-      <div className="flex justify-center h-35 items-center text-blue-600 font-semibold space-x-1">
-        <span>Loading</span>
-        <span className="animate-pulse">.</span>
-        <span className="animate-pulse delay-150">.</span>
-        <span className="animate-pulse delay-300">.</span>
-      </div>
-    );
-
   if (error) return <div className="container text-red-500">{error}</div>;
 
   return (
@@ -102,12 +71,15 @@ const Home = () => {
           onSearch={handleSearch}
         />
 
-        {weather && (
-          <WeatherDisplay
-            weather={weather}
-            isFavorite={isFavorite}
-            onToggleFavorite={toggleFavorite}
-          />
+        {loading ? (
+          <div className="flex justify-center items-center text-blue-600 font-semibold space-x-1">
+            <span>Loading</span>
+            <span className="animate-pulse">.</span>
+            <span className="animate-pulse delay-150">.</span>
+            <span className="animate-pulse delay-300">.</span>
+          </div>
+        ) : (
+          weather && <WeatherDisplay weather={weather} />
         )}
       </div>
     </div>

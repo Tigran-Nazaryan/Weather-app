@@ -26,9 +26,13 @@ export const FavoritesProvider = ({children}) => {
     setFavorites((prev) => prev.filter((c) => c.trim().toLowerCase() !== normalized));
   };
 
+  const isFavorite = (city) => {
+    const normalized = city.trim().toLowerCase();
+    return favorites.some(fav => fav.trim().toLowerCase() === normalized);
+  };
 
   return (
-    <FavoritesContext.Provider value={{favorites, addFavorite, removeFavorite}}>
+    <FavoritesContext.Provider value={{favorites, addFavorite, removeFavorite, isFavorite}}>
       {children}
     </FavoritesContext.Provider>
   );
