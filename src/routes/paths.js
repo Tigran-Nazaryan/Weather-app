@@ -1,7 +1,7 @@
 const ROUTES = {
-    ROOT: '/',
-    FAVORITES: '/favorites',
-    FORECAST: '/forecast',
+  ROOT: '/',
+  FAVORITES: '/favorites',
+  FORECAST: '/forecast',
 };
 
 export default ROUTES;

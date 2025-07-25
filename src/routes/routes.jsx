@@ -1,25 +1,43 @@
-import { createBrowserRouter } from 'react-router-dom';
+import {createBrowserRouter} from 'react-router-dom';
 import RootLayout from "../layouts/RootLayout.jsx";
 import ROUTES from "./paths.js";
-import {Home, Forecast, Favorites} from "../views";
+import {Favorites, Forecast, Home} from "../views";
+import {UnitProvider} from "../store/UnitContext.jsx";
+import {FavoritesProvider} from "../store/FavoritesContext.jsx";
 
 export const router = createBrowserRouter([
-    {
+  {
+    path: ROUTES.ROOT,
+    element: <RootLayout/>,
+    children: [
+      {
         path: ROUTES.ROOT,
-        element: <RootLayout />,
-        children: [
-            {
-                path: ROUTES.ROOT,
-                element: <Home />,
-            },
-            {
-                path: ROUTES.FORECAST,
-                element: <Forecast />,
-            },
-            {
-                path: ROUTES.FAVORITES,
-                element: <Favorites />,
-            },
-        ],
-    },
+        element: (
+          <FavoritesProvider>
+            <UnitProvider>
+              <Home/>
+            </UnitProvider>
+          </FavoritesProvider>
+        ),
+      },
+      {
+        path: ROUTES.FORECAST,
+        element: (
+          <UnitProvider>
+            <Forecast/>
+          </UnitProvider>
+        ),
+      },
+      {
+        path: ROUTES.FAVORITES,
+        element: (
+          <FavoritesProvider>
+            <UnitProvider>
+              <Favorites/>
+            </UnitProvider>
+          </FavoritesProvider>
+        ),
+      },
+    ],
+  },
 ]);

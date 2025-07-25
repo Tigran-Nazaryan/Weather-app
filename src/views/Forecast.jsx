@@ -116,7 +116,7 @@ const Forecast = () => {
                         {formatTime(selectedTime.dt_txt)}
                     </h2>
                     {selectedTime.main?.temp !== undefined && (
-                        <TemperatureSwitcher temp={convertTemp(selectedTime.main.temp)} />
+                        <TemperatureSwitcher temp={convertTemp(selectedTime.main?.temp)} />
                     )}
                     <p>Feels like: {selectedTime.main.feels_like}°C</p>
                     <p>Humidity: {selectedTime.main.humidity}%</p>
